@@ -2,7 +2,7 @@ import * as XLSX from "xlsx";
 import { readFileContent } from "./FileHandlers";
 import { generateSummary } from "./SummaryGenerator";
 
-export const handleUpload = async (
+export const handleOriginalExcel = async (
   files: FileList,
   setExcelFileUrl: (url: string) => void
 ) => {
@@ -13,6 +13,7 @@ export const handleUpload = async (
 
     if (filesContents) {
       console.log("FILE CONTENT", filesContents);
+      console.log(filesContents[0].data[0][5], "Currency")
     }
     console.log("All files read, contents are:", filesContents);
     exportToExcel(filesContents, setExcelFileUrl);
@@ -21,7 +22,7 @@ export const handleUpload = async (
   }
 };
 
-  export const handleNewExcel = async (
+  export const handleSummaryExcel = async (
     files: FileList,
     setExcelFileUrl: (url: string) => void
   ) => {
@@ -29,7 +30,6 @@ export const handleUpload = async (
       const filesContents = await Promise.all(
         Array.from(files).map(readFileContent)
       );
-
 
       if (filesContents) {
         console.log(filesContents, "cont");
@@ -45,6 +45,7 @@ export const handleUpload = async (
           "Deposit Date",
           "Sale Price",
           "Fees",
+          "Quantity Purchased"
         ];
 
         const summaryFileContents: any = [];
@@ -58,7 +59,6 @@ export const handleUpload = async (
         });
         exportToExcel(summaryFileContents, setExcelFileUrl);
         return summaryFileContents;
-        // console.log("summaryFileContents", summaryFileContents);
       }
     } catch (error) {
       console.error("Error processing files:", error);

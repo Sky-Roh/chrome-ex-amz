@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
+// set new file but not yet excelfile URL
 export const handleFileChange = (
   newFiles: FileList | null,
   setFiles: Dispatch<SetStateAction<FileList | null>>,
@@ -19,6 +20,7 @@ export const readFileContent = (file: File) => {
           const lines = content.split("\n");
           const headers = lines[0].split("\t");
           const data = lines.slice(1).map((line) => line.split("\t"));
+
 
           const transactionTypeIndex = headers.indexOf("transaction-type");
           const settlementStartDateIndex = headers.indexOf("settlement-start-date");

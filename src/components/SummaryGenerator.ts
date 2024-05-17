@@ -1,12 +1,15 @@
+import formatDate from "./utils";
+
 export const generateSummary = (headers: string[], data: string[][]) => {
   const orderIdIndex = headers.indexOf("order-id");
   const orderItemCodeIndex = headers.indexOf("order-item-code");
-  const postedDateTimeIndex = headers.indexOf("posted-date-time");
+  const postedDateTimeIndex = headers.indexOf("posted-date");
   const depositDateIndex = headers.indexOf("deposit-date");
   const amountDescriptionIndex = headers.indexOf("amount-description");
   const amountTypeIndex = headers.indexOf("amount-type");
   const amountIndex = headers.indexOf("amount");
   const skuIndex = headers.indexOf("sku");
+  const quantityPurchasedIndex = headers.indexOf("quantity-purchased");
 
   const orderSummary: { [key: string]: any } = {};
 
@@ -29,13 +32,15 @@ export const generateSummary = (headers: string[], data: string[][]) => {
           sku: row[skuIndex],
           orderId: orderId,
           orderItemCode: orderItemCode,
-          postedDateTime: row[postedDateTimeIndex],
-          depositDate: row[depositDateIndex],
-          salePrice: 0,
-          fees: 0,
+          postedDateTime: formatDate(row[postedDateTimeIndex]),
+          depositDate: formatDate(row[depositDateIndex]),
+          salePrice: 0.0,
+          fees: 0.0,
+          quantityPurchased: parseFloat(row[quantityPurchasedIndex] || "0")
         };
       }
 
+      // Calculate the Price and Fees
       if (row[amountDescriptionIndex] === "Principal") {
         orderSummary[orderId][orderItemCode].salePrice += parseFloat(
           row[amountIndex] || "0"
@@ -59,8 +64,9 @@ export const generateSummary = (headers: string[], data: string[][]) => {
         item.orderItemCode,
         item.postedDateTime,
         item.depositDate,
-        item.salePrice.toFixed(2),
-        item.fees.toFixed(2),
+        parseFloat(item.salePrice.toFixed(2)),
+        parseFloat((item.fees  * -1).toFixed(2)),
+        item.quantityPurchased
       ]);
     });
   });

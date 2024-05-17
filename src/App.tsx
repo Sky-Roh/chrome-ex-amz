@@ -21,11 +21,8 @@ function App() {
         </div>
         <h1 className="text-[1.2rem] font-bold text-black">Amazon Profit</h1>
       </header>
-
-      <main className="bg-white w-[100%] shadow-md rounded-lg p-6 text-center h-auto">
-        <h2 className="text-lg font-semibold text-gray-700 mb-4">
-          Drag and Drop file
-        </h2>
+      {/* Card  */}
+      <main className="bg-white w-[100%] shadow-md rounded-lg p-6 text-center h-60 flex items-center justify-center">
         <DragAndDrop />
       </main>
 
