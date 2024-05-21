@@ -6,9 +6,9 @@ import {
 import ConvertToExcel from "./ConvertToExcel";
 import ExportToSheet from "./ExportToSheet";
 
-const SERVER_URL = process.env.VITE_SERVER_URL;
-const CA_ENDPOINT = process.env.VITE_CA_ENDPOINT;
-const US_ENDPOINT = process.env.VITE_US_ENDPOINT;
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const CA_ENDPOINT = import.meta.env.VITE_CA_ENDPOINT;
+const US_ENDPOINT = import.meta.env.VITE_US_ENDPOINT;
 
 interface FileActionsProps {
   files: FileList;

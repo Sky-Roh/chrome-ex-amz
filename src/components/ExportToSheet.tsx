@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-const SERVER_URL = process.env.VITE_SERVER_URL;
-const CA_ENDPOINT = process.env.VITE_CA_ENDPOINT;
-const US_ENDPOINT = process.env.VITE_US_ENDPOINT;
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const CA_ENDPOINT = import.meta.env.VITE_CA_ENDPOINT;
+const US_ENDPOINT = import.meta.env.VITE_US_ENDPOINT;
 
 interface ExportToSheetProps {
   endpoint: string;
@@ -41,7 +41,9 @@ const ExportToSheet: React.FC<ExportToSheetProps> = ({
 
     const matches = jsonData
       .map((item) => {
-        const rowIndex = sheetData.findIndex((row) => row[11] === item.sku);
+        const rowIndex = sheetData.findIndex(
+          (row) => row[11] === item.sku.trim()
+        );
         if (rowIndex !== -1) {
           return {
             ...item,
@@ -64,7 +66,7 @@ const ExportToSheet: React.FC<ExportToSheetProps> = ({
       let matches;
 
       // check CAD or not
-      if (endpoint.includes(`${CA_ENDPOINT}}`)) {
+      if (endpoint.includes(`${CA_ENDPOINT}`)) {
         matches = findMatches(caData, jsonData);
       } else {
         matches = findMatches(usData, jsonData);
@@ -73,7 +75,7 @@ const ExportToSheet: React.FC<ExportToSheetProps> = ({
       if (matches.length > 0) {
         console.log("MATCH DATA", { data: matches });
         await axios.post(endpoint, { data: matches });
-        setSuccess("Data exported successfully.");
+        setSuccess("✅ Data exported successfully. ✅");
       } else {
         setError("No matching data found to export.");
       }
@@ -85,12 +87,18 @@ const ExportToSheet: React.FC<ExportToSheetProps> = ({
   };
 
   return (
-    <div>
-      <button onClick={handleExport} disabled={loading}>
+    <div className="w-full">
+      <button
+        onClick={handleExport}
+        disabled={loading}
+        className={`w-full rounded-full bg-green-500 hover:bg-yellow-400 mb-2 p-3 ${
+          success && "hidden"
+        }`}
+      >
         {loading ? "Exporting..." : "Export to Google Sheet"}
       </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      {success && <p className="text-green-600 text-[1.5rem]">{success}</p>}
     </div>
   );
 };

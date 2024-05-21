@@ -1,5 +1,7 @@
 import amzLogo from "./assets/amazon-logo-seller.png";
 import DragAndDrop from "./components/DragAndDrop";
+const APP_NAME = import.meta.env.VITE_APPNAME || "Amazon Profit Tracker";
+
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
             />
           </a>
         </div>
-        <h1 className="text-[1.2rem] font-bold text-black">Amazon Profit</h1>
+        <h1 className="text-[1.2rem] font-bold text-black">{APP_NAME}</h1>
       </header>
       {/* Card  */}
       <main className="bg-white w-[100%] shadow-md rounded-lg p-6 text-center h-60 flex items-center justify-center">
