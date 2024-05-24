@@ -5,9 +5,9 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "vite.svg",
-      "48": "vite.svg",
-      "128": "vite.svg"
+      "16": "amazon-logo-seller.png",
+      "48": "amazon-logo-seller.png",
+      "128": "amazon-logo-seller.png"
     }
   },
   "permissions": ["activeTab", "storage"],

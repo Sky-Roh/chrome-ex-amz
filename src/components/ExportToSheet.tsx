@@ -91,7 +91,7 @@ const ExportToSheet: React.FC<ExportToSheetProps> = ({
       <button
         onClick={handleExport}
         disabled={loading}
-        className={`w-full rounded-full bg-green-500 hover:bg-yellow-400 mb-2 p-3 ${
+        className={`w-full h-20 rounded-lg  py-3 bg-green-500 hover:bg-yellow-400 mb-2 p-3 ${
           success && "hidden"
         }`}
       >

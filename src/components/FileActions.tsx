@@ -23,6 +23,10 @@ interface FileActionsProps {
     setExcelFileUrl: React.Dispatch<React.SetStateAction<string | null>>
   ) => void;
   setFiles: React.Dispatch<React.SetStateAction<FileList | null>>;
+  convert: boolean | false;
+  setConvert: React.Dispatch<React.SetStateAction<boolean | false>>;
+  exportSheet: boolean | false;
+  setExportSheet: React.Dispatch<React.SetStateAction<boolean | false>>;
 }
 
 const FileActions: FC<FileActionsProps> = ({
@@ -32,9 +36,11 @@ const FileActions: FC<FileActionsProps> = ({
   handleOriginalExcel,
   handleSummaryExcel,
   setFiles,
+  convert,
+  setConvert,
+  exportSheet,
+  setExportSheet,
 }) => {
-  const [convert, setConvert] = useState<boolean>(false);
-  const [exportSheet, setExportSheet] = useState<boolean>(false);
   const [jsonData, setJsonData] = useState<any[]>([]);
   const [endpoint, setEndpoint] = useState<string>("");
 
@@ -57,19 +63,19 @@ const FileActions: FC<FileActionsProps> = ({
         <>
           <div className="w-full flex gap-3 items-center">
             <button
-              className="w-[50%] py-3 bg-green-500 text-white rounded-lg"
+              className="w-[50%] h-20 bg-green-500 text-white rounded-lg hover:bg-amber-300"
               onClick={() => setConvert(true)}
             >
               Convert To Excel
             </button>
             <button
-              className="w-[50%] py-3 bg-blue-500 text-white rounded-lg"
+              className="w-[50%] h-20 bg-blue-500 text-white rounded-lg hover:bg-purple-400"
               onClick={async () => {
                 await processFiles();
                 setExportSheet(true);
               }}
             >
-              Export to Google Sheet
+              Export to GoogleSheet
             </button>
           </div>
           <div className="w-full">
