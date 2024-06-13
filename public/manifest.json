@@ -5,9 +5,9 @@
   "action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "amazon-logo-seller.png",
-      "48": "amazon-logo-seller.png",
-      "128": "amazon-logo-seller.png"
+      "16": "woo-books-logo.png",
+      "48": "woo-books-logo.png",
+      "128": "woo-books-logo.png"
     }
   },
   "permissions": ["activeTab", "storage"],
@@ -21,8 +21,8 @@
     }
   ],
   "icons": {
-    "16": "vite.svg",
-    "48": "vite.svg",
-    "128": "vite.svg"
+    "16": "woo-books-logo.png",
+    "48": "woo-books-logo.png",
+    "128": "woo-books-logo.png"
   }
 }

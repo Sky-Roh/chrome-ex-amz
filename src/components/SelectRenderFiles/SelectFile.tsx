@@ -1,5 +1,5 @@
 import { useRef, ChangeEvent, DragEvent, FC } from "react";
-import { handleFileChange } from "./FileHandlers";
+import { handleFileChange } from "../FileHandlers";
 
 interface SelectFileProps {
   setFiles: React.Dispatch<React.SetStateAction<FileList | null>>;

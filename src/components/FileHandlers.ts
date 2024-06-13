@@ -10,6 +10,7 @@ export const handleFileChange = (
   setExcelFileUrl(null);
 };
 
+// read file content
 export const readFileContent = (file: File) => {
   return new Promise<{ name: string; headers: string[]; data: string[][] }>(
     (resolve, reject) => {
@@ -18,17 +19,21 @@ export const readFileContent = (file: File) => {
         if (e.target?.result) {
           const content = e.target.result as string;
           const lines = content.split("\n");
-          const headers = lines[0].split("\t");
+          const headers = lines[0].split("\t"); // tab divided file
           const data = lines.slice(1).map((line) => line.split("\t"));
+          // console.table(content);
 
-
+          // get an index of headers
           const transactionTypeIndex = headers.indexOf("transaction-type");
-          const settlementStartDateIndex = headers.indexOf("settlement-start-date");
+          const settlementStartDateIndex = headers.indexOf(
+            "settlement-start-date"
+          );
           const settlementEndDateIndex = headers.indexOf("settlement-end-date");
           const depositDateIndex = headers.indexOf("deposit-date");
           const totalAmountIndex = headers.indexOf("total-amount");
           const currencyIndex = headers.indexOf("currency");
 
+          // fill up the data that has in common but empty
           const commonData = {
             "settlement-start-date": data[0][settlementStartDateIndex],
             "settlement-end-date": data[0][settlementEndDateIndex],
@@ -39,7 +44,8 @@ export const readFileContent = (file: File) => {
 
           const updatedData = data.map((row) => {
             if (row[transactionTypeIndex] === "Order") {
-              row[settlementStartDateIndex] = commonData["settlement-start-date"];
+              row[settlementStartDateIndex] =
+                commonData["settlement-start-date"];
               row[settlementEndDateIndex] = commonData["settlement-end-date"];
               row[depositDateIndex] = commonData["deposit-date"];
               row[totalAmountIndex] = commonData["total-amount"];

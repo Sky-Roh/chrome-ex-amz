@@ -1,10 +1,13 @@
 import { useState, FC } from "react";
-import { handleOriginalExcel, handleSummaryExcel } from "./ExcelExporter";
-import FileListRenderer from "./FileListRenderer";
-import SelectFile from "./SelectFile";
-import FileActions from "./FileActions";
-import arrowLeftIcon from "../assets/arrow-left.svg";
-import homeIcon from "../assets/house-door.svg";
+import {
+  handleOriginalExcel,
+  handleSummaryExcel,
+} from "../ConvertToExcel/ExcelExporter";
+import FileListRenderer from "../SelectRenderFiles/FileListRenderer";
+import SelectFile from "../SelectRenderFiles/SelectFile";
+import FileActions from "../FileActions/FileActions";
+import arrowLeftIcon from "../../assets/arrow-left.svg";
+import homeIcon from "../../assets/house-door.svg";
 
 const DragAndDrop: FC = () => {
   const [files, setFiles] = useState<FileList | null>(null);
@@ -52,7 +55,7 @@ const DragAndDrop: FC = () => {
         <SelectFile setFiles={setFiles} setExcelFileUrl={setExcelFileUrl} />
       ) : (
         <div className="flex flex-col flex-grow h-full justify-between">
-          <FileListRenderer files={files} />
+          <FileListRenderer files={files} setFiles={setFiles} />
           <FileActions
             files={files}
             excelFileUrl={excelFileUrl}

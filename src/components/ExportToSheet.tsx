@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_SERVER_LOCAL || import.meta.env.VITE_SERVER_URL;
 const CA_ENDPOINT = import.meta.env.VITE_CA_ENDPOINT;
 const US_ENDPOINT = import.meta.env.VITE_US_ENDPOINT;
 
