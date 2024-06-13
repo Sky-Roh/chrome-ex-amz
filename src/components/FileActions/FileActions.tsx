@@ -3,10 +3,11 @@ import {
   processFiles as processFilesHelper,
   getCurrency,
 } from "./FileActionsHelper";
-import ConvertToExcel from "./ConvertToExcel";
-import ExportToSheet from "./ExportToSheet";
+import ConvertToExcel from "../ConvertToExcel/ConvertToExcel";
+import ExportToSheet from "../ExportToSheet";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL =
+  import.meta.env.VITE_SERVER_LOCAL || import.meta.env.VITE_SERVER_URL;
 const CA_ENDPOINT = import.meta.env.VITE_CA_ENDPOINT;
 const US_ENDPOINT = import.meta.env.VITE_US_ENDPOINT;
 
@@ -29,6 +30,7 @@ interface FileActionsProps {
   setExportSheet: React.Dispatch<React.SetStateAction<boolean | false>>;
 }
 
+// CONVERT TO EXCEL OR EXPORT TO GOOGLE SHEET
 const FileActions: FC<FileActionsProps> = ({
   files,
   excelFileUrl,
@@ -44,6 +46,7 @@ const FileActions: FC<FileActionsProps> = ({
   const [jsonData, setJsonData] = useState<any[]>([]);
   const [endpoint, setEndpoint] = useState<string>("");
 
+  // check the currency and use a proper endpoint
   const processFiles = async () => {
     if (files) {
       const data = await processFilesHelper(files);

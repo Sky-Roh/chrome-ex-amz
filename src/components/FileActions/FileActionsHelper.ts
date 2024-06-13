@@ -1,6 +1,7 @@
-import { readFileContent } from "./FileHandlers";
-import { generateSummary } from "./SummaryGenerator";
+import { readFileContent } from "../FileHandlers";
+import { generateSummary } from "../SummaryGenerator";
 
+// CURRENCY
 export const getCurrency = async (files: FileList): Promise<string[]> => {
   try {
     const filesContents = await Promise.all(
@@ -21,6 +22,7 @@ export const getCurrency = async (files: FileList): Promise<string[]> => {
   }
 };
 
+// SUMMARY EXCEL WITH JSON FORMAT
 export const handleJson = async (files: FileList): Promise<any[]> => {
   try {
     const filesContents = await Promise.all(
@@ -28,8 +30,25 @@ export const handleJson = async (files: FileList): Promise<any[]> => {
     );
 
     if (filesContents) {
-      console.log(filesContents, "cont");
-      const summaryDataArray = filesContents.map((file) => {
+
+      const combinedHeaders = filesContents[0].headers;
+      const combinedData: string[][] = [];
+
+      filesContents.forEach((fileContent) => {
+        combinedData.push(...fileContent.data);
+      });
+
+      const combinedContent = [
+        {
+          name: "summary file",
+          headers: combinedHeaders,
+          data: combinedData,
+        },
+      ];
+
+
+      console.log(combinedContent, "cont");
+      const summaryDataArray = combinedContent.map((file) => {
         return generateSummary(file.headers, file.data);
       });
 
@@ -69,11 +88,7 @@ export const processFiles = async (files: FileList | null) => {
   if (files) {
     try {
       const summaryFileContents = await handleJson(files);
-      console.log("--JSON--", summaryFileContents)
-
-      // // Get the currency
-      // const currencyList = await getCurrency(files);
-      // console.log("Currencies:", currencyList);
+      console.log("--JSON--", summaryFileContents);
 
       return summaryFileContents;
     } catch (error) {

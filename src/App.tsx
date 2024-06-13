@@ -1,6 +1,6 @@
-import amzLogo from "./assets/amazon-logo-seller.png";
-import DragAndDrop from "./components/DragAndDrop";
-const APP_NAME = import.meta.env.VITE_APPNAME || "Amazon Profit Tracker";
+import amzLogo from "./assets/woo-books-logo.png";
+import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
+const APP_NAME = import.meta.env.VITE_APPNAME || "Profit Tracker";
 
 function App() {
   return (
